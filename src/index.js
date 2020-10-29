@@ -11,7 +11,9 @@ import Header from "./Components/Header/header";
 import Footer from "./Components/Footer/footer";
 import UserList from "./Components/UserList/userList";
 import NotFound from "./Components/NotFound/NotFound";
-import Account_info from "./Components/Account_info/Account_info" 
+import Account_info from "./Components/Account_info/Account_info";
+import AddContact from "./Components/AddContact/AddContact";
+import EditContact from "./Components/EditContact/EditContact";
 
 
 class App extends React.Component{
@@ -53,6 +55,9 @@ class App extends React.Component{
     ],
     
     CustomList:[
+
+    ],
+    EditList:[
 
     ]
   };
@@ -96,6 +101,64 @@ class App extends React.Component{
      })
    }
 
+   onEdit =(id) =>{
+    const index = this.state.List.findIndex((elem)=>(elem.id===id));
+    const tmpList = this.state.List.slice();
+    const newItem = tmpList[index];
+    this.setState({
+     EditList:newItem,
+    })
+  }
+
+   onCreate = (name, role, avatar, status, email, gender) => {
+    let newContact = {
+      id: uidv4(),
+      name: name,
+      role: role,
+      avatar: avatar,
+      created: Date.now(),
+      status: status,
+      email: email,
+      gender: gender,
+    };
+
+    const newList = [...this.state.List, newContact];
+    this.setState(() => {
+      return {
+        List: newList,
+      };
+    });
+  };
+
+  onEdit_2 = (name, role, avatar, status, email, gender,created,id) => {
+    
+    let newContact = {
+      id: id,
+      name: name,
+      role: role,
+      avatar: avatar,
+      created: created,
+      status: status,
+      email: email,
+      gender: gender,
+    };
+  
+
+    const index = this.state.List.findIndex((elem)=>(elem.id===id));
+    const tmpList = this.state.List.slice();
+    
+    tmpList[index] = newContact; 
+
+    //const newList = [...this.state.List, newContact];
+    this.setState(() => {
+      return {
+        List: tmpList,
+      };
+    });
+    
+
+  };
+
   render(){
    
     return(
@@ -109,6 +172,7 @@ class App extends React.Component{
                 onStatusChange={this.onStatusChange}
                 onDelete={this.onDelete}
                 onRender={this.onRender}
+                onEdit={this.onEdit}
                 UserList ={this.state.List} />}
               />
               <Route
@@ -116,7 +180,18 @@ class App extends React.Component{
                 render={()=> <Account_info
                 ItemList ={this.state.CustomList}
                 />}
-              /> 
+              />
+               <Route
+               path="/add-new-contact"
+                render={()=><AddContact onCreate={this.onCreate}/>}
+               />
+               <Route
+               path="/edit_contact"
+               render={()=><EditContact
+               onEdit_2={this.onEdit_2}
+               EditList ={this.state.EditList}
+                />}
+               />
               <Route component={NotFound}/>    
       </Switch>
     </Router>

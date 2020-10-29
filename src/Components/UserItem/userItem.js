@@ -3,6 +3,7 @@ import "./userItem.css";
 import {Link} from "react-router-dom"
 
 import Account_info from "../Account_info/Account_info";
+import EditContact from "../EditContact/EditContact";
 
 
 class userItem extends React.Component{
@@ -20,6 +21,7 @@ class userItem extends React.Component{
         const {onStatusChange} = this.props;
         const {onDelete} = this.props;
         const {onRender} = this.props;
+        const {onEdit} = this.props;
         const {status} = this.props;
         
         let URL = `https://bootdey.com/img/Content/avatar/avatar${this.state.avatar}.png`;
@@ -69,12 +71,12 @@ class userItem extends React.Component{
 										<i className="fa fa-search-plus fa-stack-1x fa-inverse"></i>
 									</span>
 								</Link>
-								<a href="#" className="table-link">
+								<Link to="/edit_contact" className="table-link" onClick={onEdit}>
 									<span className="fa-stack">
 										<i className="fa fa-square fa-stack-2x"></i>
 										<i className="fa fa-pencil fa-stack-1x fa-inverse"></i>
 									</span>
-								</a>
+								</Link>
 								<a href="#" className="table-link danger">
 									<span className="fa-stack" onClick={onDelete}>
 										<i className="fa fa-square fa-stack-2x"></i>

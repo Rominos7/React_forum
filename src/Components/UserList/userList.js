@@ -3,7 +3,7 @@ import "./userList.css";
 
 import UserItem from "../UserItem/userItem";
 
-const userList = ({UserList, onStatusChange,onDelete,onRender}) =>{
+const userList = ({UserList, onStatusChange,onDelete,onRender, onEdit}) =>{
     const item = UserList.map(item => {
         return(<UserItem 
             key={item.id}
@@ -17,6 +17,7 @@ const userList = ({UserList, onStatusChange,onDelete,onRender}) =>{
             onStatusChange={()=>onStatusChange(item.id)}
             onDelete={()=>onDelete(item.id)}
             onRender={()=>onRender(item.id)}
+            onEdit={()=>onEdit(item.id)}
             />)
     })
     /*
