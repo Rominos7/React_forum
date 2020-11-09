@@ -3,8 +3,15 @@ import "./header.css";
 import {Link} from "react-router-dom";
 
 class Header extends React.Component{
-
+      
+     onSearchData_=(event)=>{
+       //this.props.onSearchData(event.target.value);
+       this.props.onSearch(event.target.value)
+       
+     }
+    
     render(){
+          
         return(
             <div className="container">
         <div className="row">
@@ -48,11 +55,10 @@ class Header extends React.Component{
                       type="text"
                       class="form-control"
                       placeholder="Search"
+                      onChange={this.onSearchData_}
                     />
                   </div>
-                  <button type="submit" class="btn btn-default">
-                    Submit
-                  </button>
+                  <Link to="/search_result" className="btn" onClick={this.onSearchActive}>Search</Link>
                 </form>
               </div>
             </div>
